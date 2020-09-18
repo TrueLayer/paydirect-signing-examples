@@ -1,0 +1,9 @@
+{
+  "transaction_id": "0f578465-fd26-49d8-b358-8eae8363119a",
+  "beneficiary_name": "A person",
+  "beneficiary_iban": "GB17CLRB04066800000072",
+  "beneficiary_reference": "Sandbox",
+  "currency": "GBP",
+  "amount_in_minor": 1,
+  "context_code": "withdrawal"
+}
