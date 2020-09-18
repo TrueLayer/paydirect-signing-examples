@@ -65,10 +65,7 @@ pub fn main() -> Result<(), anyhow::Error> {
         "alg": "ES512",
         "kid": options.certificate_id.to_string()
     });
-    let jws_payload = JwsPayload {
-        body: options.payload()?,
-        content_type: "application/json".into(),
-    };
+    let jws_payload = options.payload()?;
     let jws_payload = serde_json::to_string(&jws_payload)?;
     let private_key = options.private_key()?;
 
