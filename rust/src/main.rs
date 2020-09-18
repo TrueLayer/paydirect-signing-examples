@@ -51,6 +51,13 @@ impl Command {
     }
 }
 
+#[derive(serde::Serialize)]
+pub struct JwsPayload {
+    #[serde(rename = "Content-Type")]
+    content_type: String,
+    body: Value,
+}
+
 pub fn main() -> Result<(), anyhow::Error> {
     let options = Command::parse();
 
@@ -58,7 +65,11 @@ pub fn main() -> Result<(), anyhow::Error> {
         "alg": "ES512",
         "kid": options.certificate_id.to_string()
     });
-    let jws_payload = serde_json::to_string(&options.payload()?)?;
+    let jws_payload = JwsPayload {
+        body: options.payload()?,
+        content_type: "application/json".into(),
+    };
+    let jws_payload = serde_json::to_string(&jws_payload)?;
     let private_key = options.private_key()?;
 
     let jws = get_jws(&jws_header, &jws_payload, private_key)?;
