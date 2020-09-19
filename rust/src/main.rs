@@ -117,7 +117,11 @@ pub fn sign_es512(payload: &[u8], pkey: EcKey<Private>) -> Result<String, anyhow
     let r = structured_signature.r().to_vec();
     let s = structured_signature.s().to_vec();
     let mut signature_bytes: Vec<u8> = Vec::new();
+    // Padding to fixed length
+    signature_bytes.extend(std::iter::repeat(0x00).take(66 - r.len()));
     signature_bytes.extend(r);
+    // Padding to fixed length
+    signature_bytes.extend(std::iter::repeat(0x00).take(66 - s.len()));
     signature_bytes.extend(s);
 
     Ok(base64_encode(&signature_bytes))
