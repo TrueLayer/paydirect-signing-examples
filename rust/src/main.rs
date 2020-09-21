@@ -58,8 +58,7 @@ pub struct JwsPayload {
     body: Value,
 }
 
-#[tokio::main]
-pub async fn main() -> Result<(), anyhow::Error> {
+pub fn main() -> Result<(), anyhow::Error> {
     let options = Command::parse();
 
     let jws_header = json!({
@@ -69,6 +68,7 @@ pub async fn main() -> Result<(), anyhow::Error> {
     let jws_payload = options.payload()?;
     let jws_payload = serde_json::to_string(&jws_payload)?;
     let private_key = options.private_key()?;
+    println!("Request payload:\n{}\n", &jws_payload);
 
     let jws = get_jws(&jws_header, &jws_payload, private_key)?;
     println!("JWS:\n{}\n", jws);
@@ -77,26 +77,6 @@ pub async fn main() -> Result<(), anyhow::Error> {
     let detached_jsw = format!("{}..{}", parts[0], parts[2]);
     // Omit the payload for a JWS with detached payload
     println!("JWS with detached content:\n{}\n", detached_jsw);
-
-    let response = reqwest::Client::new()
-        .post("https://payouts.t7r.co/v1/test")
-        .bearer_auth("eyJhbGciOiJSUzI1NiIsImtpZCI6IjVCM0ExQzhGODMyOTlEQjJCNTE3NUVGMDBGQjYwOTc2QTkwQTMzMjFSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ild6b2NqNE1wbmJLMUYxN3dEN1lKZHFrS015RSJ9.eyJuYmYiOjE2MDA1NDM3OTEsImV4cCI6MTYwMDU0NzM5MSwiaXNzIjoiaHR0cHM6Ly9hdXRoLnQ3ci5jbyIsImF1ZCI6InBheW91dHNfYXBpIiwiY2xpZW50X2lkIjoidGVzdC1wbW90IiwianRpIjoiQTBDREVEODU2NDdBMkM1ODA5MUFCQzcyNjJFNTU5RUYiLCJpYXQiOjE2MDA1NDM3OTEsInNjb3BlIjpbInBheW91dHMiXX0.Z_Dgx6QkRq7Y3dSYPuteztxceaklSrn8I1Xr68UtqLy-THMiJ2v33-x3_E2-A2PyDKPcS8LEnVL-M2pKOvqMvL89wfhcG50xR7NNV3p7rFrMobGfEJbo17-AfiABzlTGzForerIwDaVp5mPn6Q0eYgrnY5hNmuWjEkhVAvOaSBikg0m_1x3gh_u-fhEL-urgn0Er-vzs6v87yXlUbo38RF_DvUdHEXV4TthsWlQPyv069SfROu0Z_WUV8phl370YqLJiMpHN29tYVBRbPD5jIBhzTSw3TSuPARTZ2z2qaEz-6ewKouiN4Ogj6Qa2pgGHDvSzEygE1C5mYn-Pu_pLYw")
-        .header("X-TL-Signature", detached_jsw)
-        .header("Content-Type", "application/json")
-        .body(jws_payload.as_bytes().to_vec())
-        .send()
-        .await
-        .expect("Failed to get response");
-    let status_code = response.status();
-    if status_code.is_success() {
-        println!("The request to Payouts API /test endpoint succeeded!")
-    } else {
-        let body = response.text().await.unwrap();
-        println!(
-            "The request to Payouts API /test endpoint failed with status code {} and body: {}",
-            status_code, body
-        );
-    }
 
     Ok(())
 }
