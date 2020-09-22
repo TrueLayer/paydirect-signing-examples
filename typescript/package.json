@@ -1,0 +1,27 @@
+{
+  "name": "signing",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "signing": "TS_NODE_PROJECT='./tsconfig.json' ts-node ./src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrueLayer/payouts-api-signing-examples.git"
+  },
+  "author": "David Hayden <david.hayden@truelayer.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrueLayer/payouts-api-signing-examples/issues"
+  },
+  "homepage": "https://github.com/TrueLayer/payouts-api-signing-examples#readme",
+  "dependencies": {
+    "@types/jws": "^3.2.2",
+    "@types/yargs": "^15.0.5",
+    "jws": "^4.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "yargs": "^16.0.3"
+  }
+}

@@ -1,0 +1,1 @@
+{"amount_in_minor":1,"beneficiary_iban":"GB17CLRB04066800000072","beneficiary_name":"James Smith","beneficiary_reference":"Sandbox pot","context_code":"withdrawal","currency":"GBP","transaction_id":"0f578465-fd26-49d8-b358-8eae8363119a"}
