@@ -61,8 +61,10 @@ public class RequestSigner implements Callable<Integer> {
     }
 
     private String createJwsSignature(String payload) throws IOException, JOSEException {
+        // Extends Java default encryption features
         Security.addProvider(new BouncyCastleProvider());
 
+        // Parse the private key
         PEMParser pemParser = new PEMParser(new InputStreamReader(new FileInputStream(Path.of(privateKeyFilename).toAbsolutePath().toString())));
         PEMKeyPair pemKeyPair = (PEMKeyPair) pemParser.readObject();
 
@@ -74,14 +76,12 @@ public class RequestSigner implements Callable<Integer> {
         // Get private EC key
         ECPrivateKey privateKey = (ECPrivateKey) keyPair.getPrivate();
 
+        // Build the object to sign
         JWSObject jwsObject = new JWSObject(
                 new JWSHeader.Builder(JWSAlgorithm.ES512).keyID(certificateId).build(),
                 new Payload(payload));
         jwsObject.sign(new ECDSASigner(privateKey));
 
-        // Serialise
-        String compactJWS = jwsObject.serialize();
-
-        return compactJWS;
+        return jwsObject.serialize();
     }
 }
