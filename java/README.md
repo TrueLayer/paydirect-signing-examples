@@ -31,7 +31,7 @@ A small command line interface to sign POST requests for Payouts API
                     retrieved in the Payouts Setting section. It will be used
                     as the `kid` header in the JWS
   -h, --help      Show this help message and exit.
-      --payload-filename=<payloadFileName>
+      --payload-filename=<payloadFileName>gs
                   The filename of the payload you want to sign, in JSON format
       --private-key-filename=<privateKeyFilename>
                   The filename of the Elliptic Curve private key used to sign,
