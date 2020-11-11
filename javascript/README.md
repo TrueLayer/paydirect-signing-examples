@@ -15,7 +15,7 @@ npm run signing -- --help
 ```
 
 ```text
-  Options:
+Options:
   --help                  Show help                                    [boolean]
   --version               Show version number                          [boolean]
   --certificate-id        The certificate id associated to the public
