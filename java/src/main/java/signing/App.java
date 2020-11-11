@@ -3,13 +3,10 @@
  */
 package signing;
 
-import com.nimbusds.jose.JOSEException;
 import picocli.CommandLine;
 
-import java.io.IOException;
-
 public class App {
-    public static void main(String[] args) throws IOException, JOSEException {
+    public static void main(String[] args) {
         CommandLine commandLine = new CommandLine(new RequestSigner());
 
         if (args.length == 0) {
