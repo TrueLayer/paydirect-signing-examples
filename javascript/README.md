@@ -15,22 +15,18 @@ npm run signing -- --help
 ```
 
 ```text
-Usage: signing [-hV] --certificate-id=<certificateId>
-               --payload-filename=<payloadFileName>
-               --private-key-filename=<privateKeyFilename>
-A small command line interface to sign POST requests for Payouts API
-      --certificate-id=<certificateId>
-                  The certificate id associated to the public certificate you
-                    uploaded in TrueLayer's Console. The certificate id can be
-                    retrieved in the Payouts Setting section. It will be used
-                    as the `kid` header in the JWS
-  -h, --help      Show this help message and exit.
-      --payload-filename=<payloadFileName>
-                  The filename of the payload you want to sign, in JSON format
-      --private-key-filename=<privateKeyFilename>
-                  The filename of the Elliptic Curve private key used to sign,
-                    in PEM format
-  -V, --version   Print version information and exit.
+  Options:
+  --help                  Show help                                    [boolean]
+  --version               Show version number                          [boolean]
+  --certificate-id        The certificate id associated to the public
+                          certificate you uploaded in TrueLayer's Console. The
+                          certificate id can be retrieved in the Payouts Setting
+                          section. It will be used as the `kid` header in the
+                          JWS                                [string] [required]
+  --payload-filename      The filename of the payload you want to sign, in JSON
+                          format                             [string] [required]
+  --private-key-filename  The filename of the Elliptic Curve private key used to
+                          sign, in PEM format                [string] [required]
 ```
 
 # Example 
