@@ -3,21 +3,10 @@
  */
 package signing;
 
-import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.ECDSASigner;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMKeyPair;
-import org.bouncycastle.openssl.PEMParser;
-import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import com.nimbusds.jose.JOSEException;
 import picocli.CommandLine;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.security.KeyPair;
-import java.security.Security;
-import java.security.interfaces.ECPrivateKey;
 
 public class App {
     private static final String KID = "1f060641-f776-4ca9-978c-f0836a173c81";

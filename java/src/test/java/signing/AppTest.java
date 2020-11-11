@@ -9,6 +9,6 @@ import static org.junit.Assert.*;
 
 public class AppTest {
     @Test @Ignore public void testAppHasAGreeting() {
-        //todo
+        //todo: cleanup
     }
 }
