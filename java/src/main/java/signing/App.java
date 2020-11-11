@@ -9,9 +9,6 @@ import picocli.CommandLine;
 import java.io.IOException;
 
 public class App {
-    private static final String KID = "1f060641-f776-4ca9-978c-f0836a173c81";
-    private static final String PAYLOAD = "{\"amount_in_minor\":1,\"beneficiary_iban\":\"GB98CLRB04066800000457\",\"beneficiary_name\":\"Andrea Di Lisio\",\"beneficiary_reference\":\"Sandbox pot\",\"context_code\":\"withdrawal\",\"currency\":\"GBP\",\"transaction_id\":\"b589ef0c-d6e5-418b-b6b3-a5db14c8ed0d\"}";
-
     public static void main(String[] args) throws IOException, JOSEException {
         CommandLine commandLine = new CommandLine(new RequestSigner());
 
