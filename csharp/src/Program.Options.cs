@@ -14,6 +14,9 @@ namespace signing
 
             [Option("payload", Required = true, HelpText = "File containing the payload to sign")]
             public string PayloadFile { get; set; }
+
+            [Option("debug", Default = false, HelpText = "Write payload bytes to stderr")]
+            public bool Debug { get; set; }
         }
     }
 }
