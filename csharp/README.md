@@ -27,7 +27,7 @@ signature=$(dotnet run --project src/signing.csproj -- --kid $kid --key-file ../
 Dangling control chars in the source file can cause validation issues. Run with `--debug` to see the bits *actually* slurped in.
 
 ```bash
-dotnet run --project src/signing.csproj -- --kid $kid --key-file ./ec512-private-key.pem --payload ./payload.json --debug
+dotnet run --project src/signing.csproj -- --kid $kid --key-file ../ec512-private-key.pem --payload ../payload.json --debug
 
 ```
 
