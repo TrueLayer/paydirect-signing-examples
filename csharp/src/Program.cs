@@ -23,7 +23,7 @@ namespace signing
 
         static string Sign(string kid, string keyFile, string payloadFile)
         {
-            // THe base64 encoded content of the ec private key (--BEGIN..--/--END..-- removed)
+            // The base64 encoded content of the ec private key (--BEGIN..--/--END..-- removed)
             var file = File.ReadLines(keyFile);
             var eccPem = file.Aggregate("", (l1, l2) =>
             {
