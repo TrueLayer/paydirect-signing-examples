@@ -17,10 +17,10 @@ This assumes you have generated a key pair using the `generate_key_pair.sh` scri
 
 ```bash
 # Assumes you are running from within the `csharp` directory
-dotnet run --project src/signing.csproj -- --kid $kid --key-file ./ec512-private-key.pem --payload ./payload.json
+dotnet run --project src/signing.csproj -- --kid $kid --key-file ../ec512-private-key.pem --payload ../payload.json
 
 # slurp into shell variable
-signature=$(dotnet run --project src/signing.csproj -- --kid $kid --key-file ./ec512-private-key.pem --payload ./payload.json 2>/dev/null)
+signature=$(dotnet run --project src/signing.csproj -- --kid $kid --key-file ../ec512-private-key.pem --payload ../payload.json 2>/dev/null)
 ```
 
 ## Troubleshooting
