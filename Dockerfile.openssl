@@ -1,0 +1,9 @@
+FROM alpine:3.14
+
+RUN apk update && \
+apk add --no-cache openssl && \
+rm -rf /var/cache/apk/*
+
+COPY generate_key_pair.sh ./
+
+CMD ["./generate_key_pair.sh", "out/"]

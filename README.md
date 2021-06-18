@@ -19,6 +19,17 @@ You can generate one using
 
 The script requires [`openssl`](https://www.openssl.org/).
 
-## Common Validation Errors
+An alternative script is included which will run openssl in Docker. This can mitigate some openssl
+bug(s) which cause issues with the generated private key in some languages crypto libs.
+
+```bash
+./docker_generate_key_pair.sh
+```
+
+When run, a pair of certificates will appear in `./out`
+
+## Common Problems
+
+### Signature validation
 
 The payload parsed for signing *must* be bytewise equivialent to the payload sent to our API's. The most common cause of issues are errant control characters (often seen in cli implementations where a trailing newline '\n' is inserted/removed).
