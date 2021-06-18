@@ -24,16 +24,9 @@ namespace signing
 
         static string Sign(string kid, string keyFile, string payloadFile, bool debug)
         {
-            // The base64 encoded content of the ec private key (--BEGIN..--/--END..-- removed)
-            var file = File.ReadLines(keyFile);
-            var eccPem = file.Aggregate("", (l1, l2) =>
-            {
-                if (l2.Contains("--")) return l1;
-                return l1 + l2;
-            });
-
+            var file = File.ReadAllText(keyFile).Trim();
             var key = ECDsa.Create();
-            key?.ImportECPrivateKey(Convert.FromBase64String(eccPem), out _);
+            key?.ImportFromPem(file);
 
             // Dangling control chars (like newline) are a pernicious cause of signature validation errors.
             // Ensure there are none in the source file.
