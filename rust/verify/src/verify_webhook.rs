@@ -16,8 +16,8 @@ pub fn verify_truelayer_webhook(body: &[u8], tl_signature: &str) -> anyhow::Resu
     // Construct a full jwt using the `body` & detached jws
     let jws = {
         let mut jwt_parts = tl_signature.split('.');
-        let header = jwt_parts.next().unwrap();
-        let signature = jwt_parts.last().unwrap();
+        let header = jwt_parts.next().context("invalid tl_signature")?;
+        let signature = jwt_parts.last().context("invalid tl_signature")?;
         let body_base64 = base64::encode_config(body, base64::URL_SAFE_NO_PAD);
 
         format!("{}.{}.{}", header, body_base64, signature)
