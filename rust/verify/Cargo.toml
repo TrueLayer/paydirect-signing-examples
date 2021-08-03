@@ -1,0 +1,13 @@
+[package]
+name = "verify-webhook"
+version = "0.1.0"
+authors = ["Alex Butler <alex.butler@truelayer.com>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+base64 = "0.13"
+clap = "3.0.0-beta.1"
+anyhow = "1.0.32"
+picky = "6.3"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
