@@ -1,6 +1,4 @@
 # Prerequisites
-
-- Rust (see [here](https://www.rust-lang.org/tools/install) for instructions)
 - OpenSSL (see [here](https://www.openssl.org/) for instructions)
 
 # Instructions

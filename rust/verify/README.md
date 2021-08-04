@@ -1,7 +1,3 @@
-# Prerequisites
-
-- Rust (see [here](https://www.rust-lang.org/tools/install) for instructions)
-
 # Instructions
 ```bash
 cargo run -q -- --help

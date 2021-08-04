@@ -1,8 +1,8 @@
 # Rust example code
 
-## Request signing
-See [sign](sign).
+## Prerequisites
+- Rust (see [here](https://www.rust-lang.org/tools/install) for instructions)
 
+## [Request signing](sign)
 
-## Webhook verification
-See [verify](verify).
+## [Webhook verification](verify)
