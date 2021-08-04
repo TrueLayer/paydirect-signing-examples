@@ -1,25 +1,32 @@
-const Yargs = require('yargs');
-const Jws = require('jws');
-const { Base64 } = require('js-base64');
-const JwksClient = require('jwks-rsa');
+import Yargs, { Options } from 'yargs';
+import * as Jws from 'jws';
+import * as Base64 from 'js-base64';
+import JwksClient from 'jwks-rsa';
 
-const getArgs = () => {
-    const requiredString = {
+interface Args {
+    webhookBody: string;
+    tlSignature: string;
+}
+
+const getArgs = (): Args => {
+    const requiredString: Options = {
         type: 'string',
         requiresArg: true,
         demandOption: true,
     };
-    return Yargs.options({
+    const argv = Yargs.options({
         "webhook-body": { description: 'The unmodified webhook POST body', ...requiredString },
         "tl-signature": { description: 'The `X-TL-Signature` webhook POST header', ...requiredString },
     }).argv;
+
+    return {
+        webhookBody: argv["webhook-body"] as string,
+        tlSignature: argv["tl-signature"] as string,
+    };
 }
 
-const main = async () => {
-    const {
-        "webhook-body": webhookBody,
-        "tl-signature": tlSignature,
-    } = getArgs();
+const main = async (): Promise<void> => {
+    const { webhookBody, tlSignature } = getArgs();
 
     try {
         await verifyTruelayerWebhook(webhookBody, tlSignature);
@@ -32,7 +39,7 @@ const main = async () => {
 // Verifies a truelayer webhook `body` & `tlSignature`.
 //
 // Throws an exception for invalid body + signatures.
-const verifyTruelayerWebhook = async (body, tlSignature) => {
+const verifyTruelayerWebhook = async (body: string, tlSignature: string): Promise<void> => {
     // Construct a full jws using the `body` & detached jws
     const signatureParts = tlSignature.split('.');
     const jws = `${signatureParts[0]}.${Base64.encode(body, true)}.${signatureParts[2]}`;
@@ -46,7 +53,7 @@ const verifyTruelayerWebhook = async (body, tlSignature) => {
 };
 
 // Using the jws header info download the /jwks public key by `kid` lookup.
-const fetchJwksPublicKey = async (jwksUri, kid) => {
+const fetchJwksPublicKey = async (jwksUri: string, kid: string): Promise<string> => {
     // Note: jku/jwks url should be expected truelayer url(s)
     if (jwksUri !== "https://webhooks.truelayer.com/.well-known/jwks"
         && jwksUri !== "https://webhooks.truelayer-sandbox.com/.well-known/jwks") {
