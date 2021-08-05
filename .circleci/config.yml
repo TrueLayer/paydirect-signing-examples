@@ -34,6 +34,14 @@ jobs:
       - run: cd javascript/verify && npm i
       - run: cd javascript/verify && ../../.circleci/test-verify node src/main.js
 
+  typescript-verify:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - run: cd typescript/verify && npm i
+      - run: cd typescript/verify && ../../.circleci/test-verify npm run verify --
+
 workflows:
   version: 2
   test:
@@ -42,3 +50,4 @@ workflows:
       - python-verify
       - csharp-verify
       - javascript-verify
+      - typescript-verify
