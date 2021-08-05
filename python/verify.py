@@ -3,7 +3,6 @@ import jwt
 import sys
 import json
 import urllib
-from jwt import PyJWKSet
 from base64 import urlsafe_b64encode
 
 
@@ -25,7 +24,7 @@ def fetch_public_key(jws_header):
                                  'User-Agent': "jwks-client"})
     with urllib.request.urlopen(req) as response:
         res = json.load(response)
-        set = PyJWKSet.from_dict(res)
+        set = jwt.PyJWKSet.from_dict(res)
         return next(k for k in set.keys if k.key_id == jws_header["kid"])
 
 
