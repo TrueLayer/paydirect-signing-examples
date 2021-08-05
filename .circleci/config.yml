@@ -42,6 +42,14 @@ jobs:
       - run: cd typescript/verify && npm i
       - run: cd typescript/verify && ../../.circleci/test-verify npm run verify --
 
+  java-verify:
+    docker:
+      - image: cimg/openjdk:16.0
+    steps:
+      - checkout
+      - run: cd java && ./gradlew build 
+      - run: cd java && ../.circleci/test-verify java -jar verify/build/libs/verify.jar
+
 workflows:
   version: 2
   test:
@@ -51,3 +59,4 @@ workflows:
       - csharp-verify
       - javascript-verify
       - typescript-verify
+      - java-verify
