@@ -6,10 +6,20 @@ jobs:
       - image: rust:1
     steps:
       - checkout
-      - run: "cd rust/verify && ../../.circleci/test-verify cargo run -q --"
+      - run: cd rust/verify && cargo check
+      - run: cd rust/verify && ../../.circleci/test-verify cargo run -q --
+
+  python-verify:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run: cd python && pipenv sync
+      - run: cd python && ../.circleci/test-verify pipenv run python verify.py
 
 workflows:
   version: 2
   test:
     jobs:
       - rust-verify
+      - python-verify
