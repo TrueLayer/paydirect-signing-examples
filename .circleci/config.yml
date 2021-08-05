@@ -2,11 +2,12 @@ version: 2
 
 jobs:
   rust-verify:
+    resource_class: large
     docker:
       - image: rust:1
     steps:
       - checkout
-      - run: cd rust/verify && cargo check
+      - run: cd rust && cargo build -p verify-webhook
       - run: cd rust/verify && ../../.circleci/test-verify cargo run -q --
 
   python-verify:
