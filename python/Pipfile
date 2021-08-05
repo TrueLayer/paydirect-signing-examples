@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyjwt = "*"
+cryptography = "*"
 
 [dev-packages]
 
