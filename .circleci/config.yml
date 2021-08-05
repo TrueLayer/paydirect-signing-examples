@@ -26,6 +26,14 @@ jobs:
       - run: cd csharp/verify && dotnet restore
       - run: cd csharp/verify && ../../.circleci/test-verify dotnet run --
 
+  javascript-verify:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - run: cd javascript/verify && npm i
+      - run: cd javascript/verify && ../../.circleci/test-verify npm run verify --
+
 workflows:
   version: 2
   test:
@@ -33,3 +41,4 @@ workflows:
       - rust-verify
       - python-verify
       - csharp-verify
+      - javascript-verify
