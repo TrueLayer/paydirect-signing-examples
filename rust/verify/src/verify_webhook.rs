@@ -80,7 +80,7 @@ mod test {
         let verify_ex_bad = verify_truelayer_webhook(EXAMPLE_BODY.as_bytes(), INCORRECT_SIGNATURE);
         assert!(
             verify_ex_bad.is_err(),
-            "bad body + example signature incorrectly passed verification"
+            "example body + bad signature incorrectly passed verification"
         );
 
         let verify_bad_ex =
