@@ -2,11 +2,7 @@
 use anyhow::Context;
 use base64::URL_SAFE_NO_PAD;
 use clap::Clap;
-use openssl::ec::EcKey;
-use openssl::ecdsa::EcdsaSig;
-use openssl::hash::MessageDigest;
-use openssl::nid::Nid;
-use openssl::pkey::Private;
+use openssl::{ec::EcKey, ecdsa::EcdsaSig, hash::MessageDigest, nid::Nid, pkey::Private};
 use serde_json::{json, Value};
 use std::path::PathBuf;
 use uuid::Uuid;
@@ -68,12 +64,15 @@ pub fn main() -> Result<(), anyhow::Error> {
     let jws_payload = options.payload()?;
     let jws_payload = serde_json::to_string(&jws_payload)?;
     let private_key = options.private_key()?;
-    println!("Request payload:\n{}\n", &jws_payload);
+    println!(
+        "Request payload (note no `\\n` at the end):\n{}\n",
+        &jws_payload
+    );
 
     let jws = get_jws(&jws_header, &jws_payload, private_key)?;
     println!("JWS:\n{}\n", jws);
 
-    let parts = jws.split(".").collect::<Vec<_>>();
+    let parts = jws.split('.').collect::<Vec<_>>();
     let detached_jsw = format!("{}..{}", parts[0], parts[2]);
     // Omit the payload for a JWS with detached payload
     println!("JWS with detached content:\n{}\n", detached_jsw);
@@ -114,7 +113,7 @@ pub fn sign_es512(payload: &[u8], pkey: EcKey<Private>) -> Result<String, anyhow
             "The underlying elliptic curve must be P-521 to sign using ES512."
         ));
     }
-    let hash = openssl::hash::hash(MessageDigest::sha512(), &payload)?;
+    let hash = openssl::hash::hash(MessageDigest::sha512(), payload)?;
     let structured_signature = EcdsaSig::sign(&hash, &pkey)?;
 
     let r = structured_signature.r().to_vec();

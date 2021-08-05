@@ -1,4 +1,4 @@
-# Payouts API - Signing Examples
+# Paydirect - Request signing & verification examples
 
 This repository provides a collection of code samples illustrating how to perform request signing for
 [Payouts API](https://docs.truelayer.com/#payouts-api-v1) using different programming languages.
