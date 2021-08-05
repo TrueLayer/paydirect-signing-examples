@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - run: cd javascript/verify && npm i
-      - run: cd javascript/verify && ../../.circleci/test-verify npm run verify --
+      - run: cd javascript/verify && ../../.circleci/test-verify node src/main.js
 
 workflows:
   version: 2
