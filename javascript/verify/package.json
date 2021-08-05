@@ -1,0 +1,25 @@
+{
+  "name": "verify-webhook",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "verify": "node ./src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrueLayer/paydirect-signing-examples.git"
+  },
+  "author": "Alex Butler <alex.butler@truelayer.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrueLayer/paydirect-signing-examples/issues"
+  },
+  "homepage": "https://github.com/TrueLayer/paydirect-signing-examples#readme",
+  "dependencies": {
+    "js-base64": "^3.6.1",
+    "jwks-rsa": "^2.0.4",
+    "jws": "^4.0.0",
+    "yargs": "^16.2.0"
+  }
+}

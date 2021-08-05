@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TrueLayer/payouts-api-signing-examples.git"
+    "url": "git+https://github.com/TrueLayer/paydirect-signing-examples.git"
   },
   "author": "David Hayden <david.hayden@truelayer.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TrueLayer/payouts-api-signing-examples/issues"
+    "url": "https://github.com/TrueLayer/paydirect-signing-examples/issues"
   },
-  "homepage": "https://github.com/TrueLayer/payouts-api-signing-examples#readme",
+  "homepage": "https://github.com/TrueLayer/paydirect-signing-examples#readme",
   "dependencies": {
     "jws": "^4.0.0",
-    "yargs": "^16.0.3"
+    "yargs": "^16.2.0"
   }
 }
