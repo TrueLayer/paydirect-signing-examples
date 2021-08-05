@@ -40,6 +40,7 @@ jws_header = jwt.get_unverified_header(jws)
 public_key = fetch_public_key(jws_header)
 
 try:
+    # Verify jws with the public key
     jwt.decode(jws, public_key.key, algorithms=[jws_header["alg"]])
     print("Webhook verified ✓")
 except Exception as e:
