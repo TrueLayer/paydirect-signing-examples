@@ -18,9 +18,18 @@ jobs:
       - run: cd python && pipenv sync
       - run: cd python && ../.circleci/test-verify pipenv run python verify.py
 
+  csharp-verify:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:5.0
+    steps:
+      - checkout
+      - run: cd csharp/verify && dotnet restore
+      - run: cd csharp/verify && ../../.circleci/test-verify dotnet run --
+
 workflows:
   version: 2
   test:
     jobs:
       - rust-verify
       - python-verify
+      - csharp-verify
