@@ -33,6 +33,7 @@ const main = async (): Promise<void> => {
         console.log("Webhook verified ✓");
     } catch (e) {
         console.error("Webhook verification failed:", e.message);
+        process.exitCode = 1
     }
 };
 
