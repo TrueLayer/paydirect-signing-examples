@@ -48,8 +48,9 @@ const verifyTruelayerWebhook = async (body: string, tlSignature: string): Promis
     const publicKey = await fetchJwksPublicKey(header.jku, header.kid);
 
     // Verify using the public key
-    if (!Jws.verify(jws, header.alg, publicKey))
+    if (!Jws.verify(jws, header.alg, publicKey)) {
         throw new Error("Invalid signature");
+    }
 };
 
 // Using the jws header info download the /jwks public key by `kid` lookup.
