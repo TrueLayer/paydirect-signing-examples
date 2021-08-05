@@ -1,0 +1,15 @@
+version: 2
+
+jobs:
+  rust-verify:
+    docker:
+      - image: rust:1
+    steps:
+      - checkout
+      - run: "cd rust/verify && ../../.circleci/test-verify cargo run -q --"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - rust-verify
