@@ -3,5 +3,5 @@ target/
 .idea
 *.pem
 node_modules/
-csharp/src/obj/
-csharp/src/bin/
+csharp/**/obj/
+csharp/**/bin/
