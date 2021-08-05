@@ -14,10 +14,8 @@ def build_jws(args):
     return args.tl_signature.replace("..", f".{body_base64}.")
 
 
-def fetch_public_key(jws):
+def fetch_public_key(jws_header):
     """Downloads the jwks indicated in the jws header"""
-    jws_header = jwt.get_unverified_header(jws)
-
     # jku/jwks_url should be expected truelayer url(s)
     assert jws_header["jku"] == "https://webhooks.truelayer.com/.well-known/jwks" \
         or jws_header["jku"] == "https://webhooks.truelayer-sandbox.com/.well-known/jwks"
@@ -38,10 +36,11 @@ parser.add_argument(
     '--tl-signature', help='the `X-TL-Signature` webhook POST header')
 
 jws = build_jws(parser.parse_args())
-public_key = fetch_public_key(jws)
+jws_header = jwt.get_unverified_header(jws)
+public_key = fetch_public_key(jws_header)
 
 try:
-    jwt.decode(jws, public_key.key, algorithms=["RS512"])
+    jwt.decode(jws, public_key.key, algorithms=[jws_header["alg"]])
     print("Webhook verified ✓")
 except Exception as e:
     print(f"Webhook verification failed: {e}")
