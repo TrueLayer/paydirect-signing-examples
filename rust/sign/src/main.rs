@@ -73,9 +73,9 @@ pub fn main() -> Result<(), anyhow::Error> {
     println!("JWS:\n{}\n", jws);
 
     let parts = jws.split('.').collect::<Vec<_>>();
-    let detached_jsw = format!("{}..{}", parts[0], parts[2]);
+    let detached_jws = format!("{}..{}", parts[0], parts[2]);
     // Omit the payload for a JWS with detached payload
-    println!("JWS with detached content:\n{}\n", detached_jsw);
+    println!("JWS with detached content:\n{}\n", detached_jws);
 
     Ok(())
 }
