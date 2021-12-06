@@ -25,8 +25,8 @@ def fetch_public_key(jws_header):
                                  'User-Agent': "jwks-client"})
     with urllib.request.urlopen(req) as response:
         res = json.load(response)
-        set = jwt.PyJWKSet.from_dict(res)
-        return next(k for k in set.keys if k.key_id == jws_header["kid"])
+        jwk_json = next(k for k in res["keys"] if k["kid"] == jws_header["kid"])
+        return jwt.PyJWK.from_dict(jwk_json)
 
 
 parser = argparse.ArgumentParser(
