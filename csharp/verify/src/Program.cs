@@ -25,8 +25,9 @@ namespace verify
         /// <summary>Verifies a truelayer webhook body + signature or throws.</summary>
         static async Task VerifyTruelayerWebhook(string body, string tlSignature)
         {
+            var signatureParts = tlSignature.Split(".");
             var bodyBase64 = Base64Url.Encode(Encoding.UTF8.GetBytes(body));
-            var jws = tlSignature.Replace("..", $".{bodyBase64}.");
+            var jws = $"{signatureParts[0]}.{bodyBase64}.{signatureParts[2]}";
 
             var headers = Jose.JWT.Headers(jws);
 
