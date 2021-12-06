@@ -10,7 +10,8 @@ def build_jws(args):
     """Constructs a full jwt using the body & detached jws signature args."""
     body_base64 = str(urlsafe_b64encode(
         args.webhook_body.encode("utf-8")), "utf-8").rstrip("=")
-    return args.tl_signature.replace("..", f".{body_base64}.")
+    signature_parts = args.tl_signature.split(".")
+    return f"{signature_parts[0]}.{body_base64}.{signature_parts[2]}"
 
 
 def fetch_public_key(jws_header):
@@ -24,8 +25,8 @@ def fetch_public_key(jws_header):
                                  'User-Agent': "jwks-client"})
     with urllib.request.urlopen(req) as response:
         res = json.load(response)
-        set = jwt.PyJWKSet.from_dict(res)
-        return next(k for k in set.keys if k.key_id == jws_header["kid"])
+        jwk_json = next(k for k in res["keys"] if k["kid"] == jws_header["kid"])
+        return jwt.PyJWK.from_dict(jwk_json)
 
 
 parser = argparse.ArgumentParser(

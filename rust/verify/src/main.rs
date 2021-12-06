@@ -1,9 +1,9 @@
 mod verify_webhook;
 
-use clap::Clap;
+use clap::Parser;
 
 /// Example command line interface to verify webhook payloads + signatures.
-#[derive(Clap)]
+#[derive(Parser)]
 struct Command {
     /// The unmodified webhook POST body.
     #[clap(long)]
