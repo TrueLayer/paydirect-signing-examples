@@ -1,14 +1,14 @@
 //! Cryptographic helpers functions (signing and signature verification).
 use anyhow::Context;
 use base64::URL_SAFE_NO_PAD;
-use clap::Clap;
+use clap::Parser;
 use openssl::{ec::EcKey, ecdsa::EcdsaSig, hash::MessageDigest, nid::Nid, pkey::Private};
 use serde_json::{json, Value};
 use std::path::PathBuf;
 use uuid::Uuid;
 
 /// A small command line interface to sign POST requests for Payouts API.
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = "1.0", author = "TrueLayer")]
 struct Command {
     /// The filename of the payload you want to sign, in JSON format.

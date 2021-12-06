@@ -1,9 +1,6 @@
 use anyhow::{ensure, Context};
 use picky::{
-    jose::{
-        jwk::JwkSet,
-        jws::{Jws, JwsHeader},
-    },
+    jose::jws::{Jws, JwsHeader},
     key::PublicKey,
 };
 
@@ -46,15 +43,19 @@ fn fetch_jwks_public_key(jws_header: JwsHeader) -> anyhow::Result<PublicKey> {
 
     // download the jwks
     // Note: blocking for simplicity, this fetch is generally cachable, see `cache-control`.
-    let jwks: JwkSet = reqwest::blocking::get(jwks_url)?.json()?;
-
-    // pick out the kid public key
-    Ok(jwks
+    let jwks: Jwks = reqwest::blocking::get(jwks_url)?.json()?;
+    let jwk = jwks
         .keys
-        .iter()
-        .find(|k| k.kid.as_ref() == Some(&kid))
-        .context("no key with kid found")?
-        .to_public_key()?)
+        .into_iter()
+        .find(|k| k["kid"].as_str() == Some(&kid))
+        .context("no key with kid found")?;
+
+    Ok(serde_json::from_value::<picky::jose::jwk::Jwk>(jwk)?.to_public_key()?)
+}
+
+#[derive(Debug, serde::Deserialize)]
+struct Jwks {
+    keys: Vec<serde_json::Value>,
 }
 
 /// Tests currently will fetch from https://webhooks.truelayer-sandbox.com/.well-known/jwks which isn't ideal.
