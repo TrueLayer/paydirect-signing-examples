@@ -7,7 +7,7 @@ publish = false
 
 [dependencies]
 base64 = "0.13"
-clap = "3.0.0-beta.5"
+clap = { version = "3", features = ["derive"] }
 anyhow = "1.0.32"
 picky = "6.3"
 serde = { version = "1", features = ["derive"] }
