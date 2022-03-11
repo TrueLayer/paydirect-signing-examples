@@ -1,7 +1,7 @@
 # Paydirect - Request signing & verification examples
 
 ## ⚠️ Deprecated ⚠️
-> **`X-Tl-Signature` headers have been deprecated in favour of "v2" `Tl-Signature` headers.**
+> **`X-Tl-Signature` headers have been deprecated in favour of "v2" `Tl-Signature` full request signature headers.**
 >
 > **Go to https://github.com/TrueLayer/truelayer-signing for multi-language signing libraries & examples.**
 
