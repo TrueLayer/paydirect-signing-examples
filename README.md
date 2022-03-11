@@ -1,5 +1,10 @@
 # Paydirect - Request signing & verification examples
 
+## ⚠️ Deprecated ⚠️
+> **`X-Tl-Signature` headers have been deprecated in favour of "v2" `Tl-Signature` headers.**
+>
+> **Go to https://github.com/TrueLayer/truelayer-signing for multi-language signing libraries & examples.**
+
 This repository provides a collection of code samples illustrating how to perform request signing for
 [Payouts API](https://docs.truelayer.com/#payouts-api-v1) using different programming languages.
 
